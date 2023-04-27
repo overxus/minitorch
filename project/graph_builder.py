@@ -1,5 +1,6 @@
 import networkx as nx
 
+
 import minitorch
 
 if hasattr(minitorch, "Scalar"):
