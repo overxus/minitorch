@@ -54,14 +54,15 @@ class ScalarFunction:
                 raw_vals.append(v.data)
             else:
                 scalars.append(minitorch.scalar.Scalar(v))
-                raw_vals.append(v)
+                raw_vals.append(float(v))
 
         # Create the context.
         ctx = Context(False)
 
         # Call forward with the variables.
         c = cls._forward(ctx, *raw_vals)
-        assert isinstance(c, float), "Expected return type float got %s" % (type(c))
+        # assert isinstance(c, float), f"Expected return type float got {type(c)}"
+        assert isinstance(c, float), f"{c}, {[(raw_val, type(raw_val)) for raw_val in raw_vals]}"
 
         # Create a new variable from the result with a new history.
         back = minitorch.scalar.ScalarHistory(cls, ctx, scalars)
